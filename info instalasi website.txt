@@ -1,0 +1,97 @@
+buka control panel
+lalu cari online file manager kalo sudah ketemu klik untuk membuka terus
+untuk ke empat file yang di butuhkan saya tempel satu satu di di htdoc
+- get_detail.php
+- index.php
+- koneksi.php
+- login.php
+- logout.php
+attau dalam berbentuk file web.zip
+bisa anda uplod file web tsb satu satau atau aplod sekalian semua file harus di konpres dalam bentuk zip kita pilih file lalu klik uplod file cati file web.zip tsb kalo sudha ketemu klik terus klik upload tunggu sampai selesaio kalo sudah
+
+selanjut nya buka mysqldatabase
+dimanu List of MySQL Databases tambahkan dattabase  sepeti contoh if0_41049900_if0_41049640_xaillastore lalu klik simpan setelah itu kita klik php myadmin cari na sql lalu kita klik pastekan file script ini colt dibawha ini 
+
+-- 1. Buat Database (Jika belum ada)
+CREATE DATABASE IF NOT EXISTS db_xailla;
+USE db_xailla;
+
+-- 2. Tabel Admin (Untuk Login)
+CREATE TABLE IF NOT EXISTS admin (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- Masukkan akun default (User: admin, Pass: admin)
+INSERT INTO admin (username, password) VALUES ('admin', 'admin');
+
+-- 3. Tabel Member (Data Pelanggan)
+CREATE TABLE IF NOT EXISTS member (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nama_member VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- 4. Tabel Produk (Stok & Harga)
+CREATE TABLE IF NOT EXISTS produk (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    nama_barang VARCHAR(255) NOT NULL,
+    stok INT(11) NOT NULL DEFAULT 0,
+    modal INT(11) NOT NULL DEFAULT 0,
+    member INT(11) NOT NULL DEFAULT 0,
+    ecer INT(11) NOT NULL DEFAULT 0,
+    PRIMARY KEY (id)
+);
+
+-- 5. Tabel Laporan (Riwayat Penjualan Kasir)
+CREATE TABLE IF NOT EXISTS laporan (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    id_harian VARCHAR(50) NOT NULL,
+    nama_barang VARCHAR(255) NOT NULL,
+    tipe_pembeli VARCHAR(20) NOT NULL, -- Ecer atau Member
+    harga_jual INT(11) NOT NULL,
+    untung INT(11) NOT NULL,
+    modal_asli INT(11) NOT NULL,
+    stok_sisa INT(11) NOT NULL,
+    pembeli VARCHAR(100) NOT NULL,
+    tanggal DATETIME NOT NULL,
+    PRIMARY KEY (id)
+);
+
+-- 6. Tabel History Faktur (Riwayat Pembelian Barang/Kulakan)
+CREATE TABLE IF NOT EXISTS history_faktur (
+    id INT(11) NOT NULL AUTO_INCREMENT,
+    no_faktur VARCHAR(50) NOT NULL,
+    suplayer VARCHAR(100) NOT NULL,
+    tgl_nota DATETIME NOT NULL,
+    nama_barang VARCHAR(255) NOT NULL,
+    stok_masuk INT(11) NOT NULL,
+    modal INT(11) NOT NULL,
+    member INT(11) NOT NULL,
+    ecer INT(11) NOT NULL,
+    tanggal_input DATETIME NOT NULL,
+    PRIMARY KEY (id)
+);
+
+sampai di atas ini 
+kalo sudsh copy kita piastelan setelah paste selesai lanjut klik save/kirim setelah itu kembali 
+
+untuk mengoneksikan mysql kita edit folder koneksi.php sesuaikan dengan
+
+<?php
+$host = "pastekab di sini"; 
+$user = "pastekan di sini";    
+$pass = "pastekan di sini";    
+// Nama DB harus persis seperti di gambar List of MySQL Databases Anda
+$db   = "pastekan di sini data Databases"; 
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn) {
+    die("Koneksi gagal: " . mysqli_connect_error());
+}
+?>
+
+setalah sudah di edit kita klik save lalu kembali buka wabsite dam selesai websote sudah dapat di aksess
